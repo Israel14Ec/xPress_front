@@ -17,7 +17,7 @@ export const useWebSocketStore = defineStore('websockets', () => {
     const echoConfig = {
         broadcaster: 'pusher',
         key: import.meta.env.VITE_PUSHER_KEY, 
-        wsHost: window.location.hostname, 
+        wsHost: import.meta.env.VITE_PUSHER_HOST, 
         wsPort: import.meta.env.VITE_WS_PORT, 
         forceTLS: false, 
         disableStats: true,
