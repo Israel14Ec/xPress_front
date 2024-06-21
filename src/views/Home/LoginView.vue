@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[90%] lg:w-[50%] p-2 shadow-sm shadow-gray-300">
+  <div class="w-[90%] lg:w-[50%] p-2 shadow-gray-300">
     <h1 class="text-center text-2xl mb-10 text-yellow-500 font-semibold uppercase">Inicia sesión en xPress</h1>
     <div class="mt-5 mx-10 md:mx-0 my-10">
       <div class="mx-auto w-full">
@@ -24,7 +24,7 @@
         </FormKit>
 
       </div>
-      <div class=" flex flex-col md:flex-row justify-center items-center gap-5">
+      <div class=" flex flex-col md:flex-row justify-center items-center gap-3">
         <div>
           <RouterLink :to="{ name: 'createAccount' }">
             <p class="account-link">¿No tienes cuenta?</p>

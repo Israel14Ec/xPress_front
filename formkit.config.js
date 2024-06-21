@@ -16,8 +16,8 @@ const config = {
               label: 'block font-bold font-medium text-md text-gray-700',
               legend: 'font-bold text-sm',
               loaderIcon: 'inline-flex items-center w-4 text-gray-600 animate-spin',
-              message: 'text-red-500 text-xs text-center',
-              messages: 'list-none p-0 mt-1 mb-0',
+              message: 'text-red-500 font-semibold text-xs text-center',
+              messages: 'list-none p-0 mb-0',
               outer: 'mb-4 formkit-disabled:opacity-50',
               prefixIcon:
                 'w-10 flex self-stretch grow-0 shrink-0 rounded-tl rounded-bl border-r border-gray-400 bg-white bg-gradient-to-b from-transparent to-gray-200 [&>svg]:w-full [&>svg]:max-w-[1em] [&>svg]:max-h-[1em] [&>svg]:m-auto',

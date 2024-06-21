@@ -1,7 +1,7 @@
 <template>
     <div class=" py-2 border-t-2 border-gray-400">
         <div class=" flex justify-between">
-            <h3 class="text-sm text-gray-900 font-bold">Detalles de la ordén de trabajo</h3>
+            <h3 class="text-sm text-gray-900 font-bold">Detalles de la orden de trabajo</h3>
             <RouterLink :to="{ name: 'JobInProgressHead' }">
                 <ButtonBlack class=" bg-gray-100 hover:bg-gray-200">
                     <ArrowUturnLeftIcon />
@@ -44,7 +44,7 @@
                 </div>
             </div>
             <div class="mt-5 bg-white p-5 rounded-lg">
-                <h4 class="text-lg font-bold my-4 text-center text-yellow-500">Editar Orden de trabajo</h4>
+                <h4 class="text-lg font-bold my-4 text-center text-yellow-500">Editar Orden de Trabajo</h4>
                 <v-stepper editable v-model="step" :items="['Editar Detalles', 'Editar Materiales', 'Editar Equipos']"
                     alt-labels>
 
@@ -149,9 +149,7 @@
                                                             :key="userSelect.id_user" :worker="userSelect" />
                                                     </div>
                                                     <div v-else>
-                                                        <p class="text-center text-gray-500 font-semibold">No hay
-                                                            trabajadores disponibles,
-                                                            en las fechas seleccionadas
+                                                        <p class="text-center text-gray-500 font-semibold">No se selecciono a algún trabajador
                                                         </p>
                                                     </div>
                                                 </div>

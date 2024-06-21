@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-5 mx-auto w-[90%] lg:w-[50%] shadow-sm shadow-gray-300">
+    <div class="mt-5 mx-auto w-[90%] lg:w-[50%] shadow-gray-300">
         <div class="p-5">
             <div class="p-5 mx-auto rounded-lg">
                 <div class="mb-5">

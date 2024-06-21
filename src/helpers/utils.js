@@ -59,12 +59,11 @@ export const formatter = {
   month: 'MMMM'
 }
 
-export function formatterDayMonthYear (date) {
-
-  const parts = date.split("-");
-  const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+export function formatterDayMonthYear(date) {
+  const formattedDate = date.replace(/-/g, '/');
   return formattedDate;
 }
+
 
 
 //Formatear la Fecha a DD/MM/YYYY

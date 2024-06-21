@@ -62,6 +62,7 @@
                             </div>
 
                             <div class="flex items-center justify-center">
+                     
                                 <VueTailwindDatepicker :disable-date="disableDate" i18n="es-mx" as-single use-range no-input
                                     :formatter="formatter" :shortcuts="false" v-model="assignedDate" />
                             </div>

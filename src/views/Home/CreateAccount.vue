@@ -1,10 +1,10 @@
 <template>
-    <div class="mx-auto shadow-lg p-5 shadow-gray-300">
+    <div class="mx-auto p-5 shadow-gray-300">
         <h1 class="text-center text-yellow-400 text-2xl font-bold mt-3 mb-10 uppercase">Registrate</h1>
 
         <div class="">
 
-            <FormKit id="CreateForm" type="form"  :actions="false" incomplete-message="Complete todos los campos"
+            <FormKit id="CreateForm" type="form"  :actions="false" incomplete-message="Revisa las alertas"
                 @submit="handleSubmit">
 
                 <div class="flex flex-col md:flex-row md:gap-x-14">
@@ -38,7 +38,7 @@
                 <FormKit type="select" label="Departamento" placeholder="Seleccione un departamento" name="id_department"
                     validation="required" :validation-messages="{
                         required: 'Seleccionar un departamento es obligatorio'
-                    }" :options=department.departmentOptionsObject prefix-icon="repeater" />
+                    }" :options=createAccount.departmentOption prefix-icon="repeater" />
 
                 <FormKit type="text" label="Correo electrónico " name="email" placeholder="Ingrese su nombre"
                     validation="required|email" :validation-messages="{
@@ -73,7 +73,7 @@
                 </FormKit>
 
             </FormKit>
-            <RouterLink :to="{name:'login'}" class=" text-yellow-500 text-center">
+            <RouterLink :to="{name:'login'}" class=" text-yellow-500 text-center font-semibold">
                 <p>Inicio</p>
             </RouterLink>
         </div>
@@ -84,12 +84,12 @@
 
 import { inject } from 'vue'
 import { useRouter, RouterLink } from 'vue-router'
-import { useDepartmentStore } from '../../stores/department'
 import UserApi from '../../api/UserApi'
+import { useCreateAccountStore } from '../../stores/createAccount'
 
-const department = useDepartmentStore()
 const toast = inject('toast')
 const route = useRouter()
+const createAccount = useCreateAccountStore()
 
 //Llama a la API para crear cuenta
 const handleSubmit = async ({ password_confirm, ...formData }) => {    //Saco del objeto el password_confirm
@@ -108,8 +108,9 @@ const handleSubmit = async ({ password_confirm, ...formData }) => {    //Saco de
 
 
     } catch (error) {
+        console.log(error)
         toast.open({
-            message: error.response.data.msg,
+            message: error.response.data.error,
             type: 'error'
         })
     }

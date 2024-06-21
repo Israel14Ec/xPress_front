@@ -29,5 +29,8 @@ export default {
     //Elimina a los departamentos
     deleteDepartment(id){
         return api.delete(`v1/department/${id}`)
+    },
+    getDepartmentWithOutAdmin() {
+        return api.get('v1/department/with_out_admin')
     }
 }

@@ -3,7 +3,6 @@ import { ref, inject, watch, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { useJobStore } from './job'
-import { convertDateToISO} from '../helpers/utils'
 import UserApi from '../api/UserApi'
 import EquipmentApi from '../api/EquipmentApi'
 import WorkOderApi from '../api/WorkOderApi'
@@ -252,16 +251,18 @@ export const useAssignedWorkerStore = defineStore('assignedWorkers', () => {
 
     //Watch para escuchar por los cambios de la fecha y traer a los usuarios
     watch(() => assignedDate.value, (newVal, oldVal) => {
-            if (newVal !== oldVal) {
-                getWorkersAvailable();
-                usersSelect.value = []
-                
-                //El trabajo es de máxima prioridad
-                if(jobData.value.level_priority === MAX_PRIORITY) {
-                    getWorkersNoAvailable()
-                    isMaxPriority.value = true
-                } else {
-                    isMaxPriority.value = false
+            if(assignedDate.value.length > 0) {
+                if (newVal !== oldVal) {
+                    getWorkersAvailable();
+                    usersSelect.value = []
+                    
+                    //El trabajo es de máxima prioridad
+                    if(jobData.value.level_priority === MAX_PRIORITY) {
+                        getWorkersNoAvailable()
+                        isMaxPriority.value = true
+                    } else {
+                        isMaxPriority.value = false
+                    }
                 }
             }
         },
@@ -295,14 +296,11 @@ export const useAssignedWorkerStore = defineStore('assignedWorkers', () => {
                 };
             });
             
-            const assignedDateISO = convertDateToISO(assignedDate.value[0]);
-            const endDateISO = convertDateToISO(assignedDate.value[1]);
-
             const dataRequest = {
                 id_job: idJob,
                 instructions: instructions.value,
-                assigned_date: assignedDateISO,
-                end_date: endDateISO,
+                assigned_date: assignedDate.value[0],
+                end_date: assignedDate.value[1],
                 id_user: usersSelect.value.map(user => user.id_user),
                 materials: formattedMaterials,
                 id_equipment_assigned: equipmentsSelect.value.map(equipment => equipment.id_construction_equipment)
