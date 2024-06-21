@@ -4,9 +4,9 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from './auth';
 import { parse, format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { getCurrentDate } from '../helpers/utils'
 import useImage from '../composables/useImage';
 import JobApi from '../api/JobApi'
+import { getCurrentDate, formattedDMY } from '../helpers/utils'
 
 
 export const useJobStore = defineStore('jobs', () => {
@@ -161,6 +161,9 @@ export const useJobStore = defineStore('jobs', () => {
     //Actualiza el trabajo
     async function update({id_job, ...values}) {
         try {
+            
+            values.start_date = formattedDMY(values.start_date)
+            
             const { data } = await JobApi.updateJob(id_job, values)
             toast.open({
                 message: data.msg,

@@ -1,3 +1,5 @@
+import { parseISO, format } from 'date-fns'
+
 // Configuración de la tabla
 export const optionsTable = {
     responsive: true,
@@ -62,6 +64,12 @@ export const formatter = {
 export function formatterDayMonthYear(date) {
   const formattedDate = date.replace(/-/g, '/');
   return formattedDate;
+}
+
+//Formatea a Dia/m/año con date-fns
+export function formattedDMY(dateString) {
+  const date = parseISO(dateString);
+  return format(date, 'dd/MM/yyyy');
 }
 
 

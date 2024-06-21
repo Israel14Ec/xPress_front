@@ -18,11 +18,12 @@
                 <FormKit type="date" help="ingrese una fecha" v-model="date" />
             </div>
         </div>
+
         <div class="flex flex-col justify-center items-center">
             <p v-if="!select && !date">Seleccione un estado de trabajo o fecha para mostrar resultados</p>
 
-            <div v-else class=" rounded-lg">
-
+            <div v-else class=" rounded-lg">    
+               
                 <v-data-table-server 
                     :items-per-page-options="itemsOption" 
                     v-model:items-per-page="selectedItemsPerPage"
@@ -49,9 +50,9 @@
 
                     <template v-slot:item.actions="{ item }">
                         <div class="my-3 flex flex-col gap-2">
-
                             <RouterLink 
-                                v-if="select === idJobFinally" 
+                                
+                                v-if="item.id_job_status === idJobFinally" 
                                 :to="{ name: 'JobFinishDetailsAdmin', params: { id: item.id_job }}" 
                                 class="d-flex gap-1 cursor-pointer text-orange-500 hover:text-orange-300"
                                 >

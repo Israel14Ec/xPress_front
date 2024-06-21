@@ -1,4 +1,4 @@
-<template>
+    <template>
     <div class="max-w-[95%] mt-4 mx-auto">
 
         <div class=" flex flex-row justify-between">
