@@ -40,7 +40,7 @@
                         required: 'Seleccionar un departamento es obligatorio'
                     }" :options=createAccount.departmentOption prefix-icon="repeater" />
 
-                <FormKit type="text" label="Correo electrónico " name="email" placeholder="Ingrese su nombre"
+                <FormKit type="text" label="Correo electrónico " name="email" placeholder="Ingrese su correo"
                     validation="required|email" :validation-messages="{
                         required: 'El correo es obligatorio',
                         email: 'Ingrese un correo electrónico válido'

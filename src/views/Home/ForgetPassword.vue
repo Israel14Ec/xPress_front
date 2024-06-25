@@ -21,7 +21,7 @@
                         {{ message }}
                     </p>
                     
-                    <div class="flex flex-row justify-end gap-5">
+                    <div class="flex flex-row justify-end gap-3">
 
                         <RouterLink :to="{name: 'login'}" v-if="!loadSendEmail">
                             <ButtonBlack class="bg-gray-100 hover:bg-gray-300 text-gray-700">
@@ -30,7 +30,7 @@
                             </ButtonBlack>
                         </RouterLink>
                 
-                        <ButtonBlack class="bg-yellow-500 hover:bg-yellow-400 text-white"
+                        <ButtonBlack class="bg-gray-800 hover:bg-gray-500 text-white"
                             @click="sendEmailHandler()"
                             >
                             <MagnifyingGlassIcon />
@@ -94,5 +94,3 @@ const sendEmailHandler = ()=> {
 }
 
 </script>
-
-<style lang="scss" scoped></style>
