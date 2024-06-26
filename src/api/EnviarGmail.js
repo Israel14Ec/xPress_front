@@ -18,7 +18,7 @@ const enviarRespuesta = async (selectedMessage, from, subject, replyContent, clo
             withCredentials: true, // Para enviar cookies y permitir CORS
             headers: {
                 'Content-Type': 'application/json', // Especifica el tipo de contenido JSON
-                'Access-Control-Allow-Origin': 'http://localhost:5173' // Especifica el origen permitido para CORS
+                'Access-Control-Allow-Origin': import.meta.env.VITE_GMAIL_CORS // Especifica el origen permitido para CORS
             }
         });
 

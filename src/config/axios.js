@@ -5,7 +5,7 @@ const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL //Uso la variable de entorno
 })
 
-//Usamos un interceptor para agregar la cabecera HTTP cpn el token
+//Usamos un interceptor para agregar la cabecera HTTP con el token
 api.interceptors.request.use((config)=> {
 
     const token = localStorage.getItem('AUTH_TOKEN')

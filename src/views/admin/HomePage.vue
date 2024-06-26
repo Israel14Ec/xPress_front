@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-[95%] mb-16 mx-auto bg-white h-screen p-5 rounded-lg">
+  <div class="max-w-[95%] mb-16 mx-auto bg-white h-svh p-5 rounded-lg">
     <!-- Modal de éxito o error -->
     <div class="modal" v-if="successMessage || errorMessage">
       <div class="modal-content">
