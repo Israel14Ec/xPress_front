@@ -26,6 +26,7 @@ const enviarRespuesta = async (selectedMessage, from, subject, replyContent, clo
         console.log('Respuesta del servidor:', response.data);
     } catch (error) {
         // Maneja cualquier error que ocurra durante la solicitud
+        console.log(error)
         throw error;
     }
 };
