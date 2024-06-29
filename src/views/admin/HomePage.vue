@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-[95%] mb-16 mx-auto bg-white h-svh p-5 rounded-lg">
+  <div class="max-w-[95%] mb-16 mx-auto bg-white h-screen p-5 rounded-lg">
     <!-- Modal de éxito o error -->
     <div class="modal" v-if="successMessage || errorMessage">
       <div class="modal-content">
@@ -312,7 +312,8 @@ const sendReply = async () => {
 
     if (selectedMessage.value) {
       // Respondiendo a un mensaje existente
-      const fromEmail = selectedMessage.value.from.match(/<([^>]+)>/)[1];
+      console.log(selectedMessage.value)
+      const fromEmail = selectedMessage.value.from;
       const response = await enviarRespuesta(selectedMessage.value, fromEmail, selectedMessage.value.subject, replyContent.value, closeReplyModal);
       console.log('Respuesta del servidor:', response);
       closeReplyModal();

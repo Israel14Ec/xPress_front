@@ -4,6 +4,10 @@ import api from "../config/axios";
 // Define la función para enviar la respuesta al servidor
 const enviarRespuesta = async (selectedMessage, from, subject, replyContent, closeReplyModal) => {
     try {
+        console.log(from)
+        console.log(subject)
+        console.log(replyContent)
+
         // Construye el objeto de datos para enviar al servidor
         const data = {
             
@@ -24,6 +28,8 @@ const enviarRespuesta = async (selectedMessage, from, subject, replyContent, clo
 
         // Maneja la respuesta del servidor si es necesario
         console.log('Respuesta del servidor:', response.data);
+        return response
+        
     } catch (error) {
         // Maneja cualquier error que ocurra durante la solicitud
         console.log(error)
