@@ -313,7 +313,7 @@ const sendReply = async () => {
     if (selectedMessage.value) {
       // Respondiendo a un mensaje existente
       console.log(selectedMessage.value)
-      const fromEmail = selectedMessage.value.from;
+      const fromEmail = selectedMessage.value.from.match(/<([^>]+)>/)[1];
       const response = await enviarRespuesta(selectedMessage.value, fromEmail, selectedMessage.value.subject, replyContent.value, closeReplyModal);
       console.log('Respuesta del servidor:', response);
       closeReplyModal();
