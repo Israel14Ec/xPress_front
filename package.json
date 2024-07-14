@@ -36,7 +36,7 @@
     "leaflet": "^1.9.4",
     "leaflet-geosearch": "^3.11.0",
     "pinia": "^2.1.6",
-    "pusher-js": "^8.4.0-rc2",
+    "pusher-js": "^4.4.0",
     "select2": "^4.1.0-rc.0",
     "uid": "^2.0.2",
     "vue": "^3.3.4",
