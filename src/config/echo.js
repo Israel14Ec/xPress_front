@@ -10,10 +10,10 @@ const echoConfig = {
     key: 'miAppKeyProd', // Puede ser cualquier string ya que no estamos usando Pusher
     wsHost: 'xpressback-production.up.railway.app', // Apunta a tu dominio de WebSockets
     wsPort: 6001, // Puerto del servidor WebSockets
-    wssPort: 6001, // Puerto seguro del servidor WebSockets
-    forceTLS: false, // Usa false si no estás usando SSL
+    wssPort: 6001, // Puerto seguro del servidor WebSockets (puedes ignorarlo si no usas SSL)
+    forceTLS: false, // Asegúrate de que esté en false si no estás usando SSL
     disableStats: true,
-    enabledTransports: ['ws'], // Solo habilitar WebSocket
+    enabledTransports: ['ws'], // Solo habilitar WebSocket sin SSL
     cluster: 'mt1', // Asegúrate de incluir el cluster
     authEndpoint: 'https://xpressback-production.up.railway.app/broadcasting/auth', // Cambia a tu endpoint de autenticación
     auth: {
