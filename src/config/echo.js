@@ -14,6 +14,7 @@ const echoConfig = {
     forceTLS: false, // Usa false si no estás usando SSL
     disableStats: true,
     enabledTransports: ['ws', 'wss'], // Solo habilitar WebSocket
+    cluster: 'mt1', // Asegúrate de incluir el cluster
     authEndpoint: 'https://xpressback-production.up.railway.app/broadcasting/auth', // Cambia a tu endpoint de autenticación
     auth: {
         headers: {
