@@ -110,7 +110,7 @@ export const useWebSocketStore = defineStore('websockets', () => {
             console.warn('Disconnected from WebSocket, attempting to reconnect...');
             setTimeout(() => {
                 window.Echo.connector.pusher.connect();
-            }, 3000); // Intentar reconectar cada 3 segundos
+            }, 3000);
         });
     }
 
@@ -119,5 +119,13 @@ export const useWebSocketStore = defineStore('websockets', () => {
     return {
         messages,
         startListening,
+        startListening2: startListening,
+        startListeningJob: startListening,
+        startListenWorkAssigned: startListening,
+        startListenReportMaterial: startListening,
+        startListenReportWorkComplete: startListening,
+        startListenReportEquipment: startListening,
+        startlisteningMaterialUnavailable: startListening,
+        startListeningEquipmentUnavailable: startListening,
     };
 });
