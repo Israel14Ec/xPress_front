@@ -2,6 +2,9 @@ import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 
 window.Pusher = Pusher;
+
+const token = localStorage.getItem('AUTH_TOKEN');
+
 const echoConfig = {
     broadcaster: 'pusher',
     key: 'miAppKeyProd', // Puede ser cualquier string ya que no estamos usando Pusher
@@ -11,6 +14,12 @@ const echoConfig = {
     forceTLS: false, // Usa false si no estás usando SSL
     disableStats: true,
     enabledTransports: ['ws', 'wss'], // Solo habilitar WebSocket
+    authEndpoint: 'https://xpressback-production.up.railway.app/broadcasting/auth', // Cambia a tu endpoint de autenticación
+    auth: {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        }
+    }
 };
 
 window.Echo = new Echo(echoConfig);
