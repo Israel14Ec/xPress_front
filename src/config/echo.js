@@ -3,24 +3,26 @@ import Pusher from 'pusher-js';
 
 window.Pusher = Pusher;
 
-const token = localStorage.getItem('AUTH_TOKEN')
-console.log(token)
+const token = localStorage.getItem('AUTH_TOKEN');
+console.log(token);
+
 const echoConfig = {
     broadcaster: 'pusher',
-    key: import.meta.env.VITE_PUSHER_KEY, 
-    wsHost: window.location.hostname, 
-    wsPort: 6001, 
-    forceTLS: false, 
+    key: 'miAppKeyProd',  // Este puede ser cualquier string ya que no estamos usando Pusher
+    wsHost: 'xpressback-production.up.railway.app', // Apunta a tu dominio de WebSockets
+    wsPort: 6001, // Puerto del servidor WebSockets
+    wssPort: 6001, // Puerto seguro del servidor WebSockets
+    forceTLS: true, // Usa true si estás usando SSL, false de lo contrario
     disableStats: true,
-    cluster: 'mt1',
-    authEndpoint: 'http://localhost:8000/broadcasting/auth',
+    cluster: 'mt1', // Puedes omitir esto si no usas Pusher
+    enabledTransports: ['ws', 'wss'], // Solo habilitar WebSocket
+    authEndpoint: 'https://xpressback-production.up.railway.app/broadcasting/auth', // Cambia a tu endpoint de autenticación
     auth: {
         headers: {
-             Authorization: `Bearer ${token}`,
-         }
-    }
+            Authorization: `Bearer ${token}`,
+        },
+    },
 };
-
 
 const echoInstance = new Echo(echoConfig);
 
