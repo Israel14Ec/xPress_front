@@ -101,15 +101,15 @@ export const useWebSocketStore = defineStore('websockets', () => {
     }
 
     function handleReconnect() {
-        window.Echo.connector.pusher.connection.bind('connected', () => {
+        echoInstance.connector.pusher.connection.bind('connected', () => {
             console.log('Reconnected to WebSocket');
             registerListeners();
         });
 
-        window.Echo.connector.pusher.connection.bind('disconnected', () => {
+        echoInstance.connector.pusher.connection.bind('disconnected', () => {
             console.warn('Disconnected from WebSocket, attempting to reconnect...');
             setTimeout(() => {
-                window.Echo.connector.pusher.connect();
+                echoInstance.connector.pusher.connect();
             }, 3000);
         });
     }
