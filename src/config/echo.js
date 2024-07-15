@@ -8,12 +8,9 @@ console.log(token);
 
 const echoConfig = {
     broadcaster: 'pusher',
-    key: 'df03ae27a8fe092e5efa',
-    wsHost: window.location.hostname,
-    wsPort: 6001,
-    forceTLS: false,
-    disableStats: true,
+    key: "df03ae27a8fe092e5efa",
     cluster: 'mt1',
+    encrypted: true,
     authEndpoint: 'http://localhost:8000/broadcasting/auth',
     auth: {
         headers: {
