@@ -11,7 +11,7 @@ const echoConfig = {
     key: "df03ae27a8fe092e5efa",
     cluster: 'mt1',
     encrypted: true,
-    authEndpoint: 'http://localhost:8000/broadcasting/auth',
+    authEndpoint: 'https://xpressback-production.up.railway.app/broadcasting/auth',
     auth: {
         headers: {
             Authorization: `Bearer ${token}`,
