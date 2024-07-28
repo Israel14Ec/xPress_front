@@ -1,6 +1,7 @@
 import {defineStore} from 'pinia'
 import {inject, ref} from 'vue'
 import {useRouter} from 'vue-router'
+import { disconnectEcho } from '../config/echo'
 import AuthApi from '../api/AuthApi'
 
 
@@ -38,14 +39,14 @@ export const useAuthStore = defineStore('auths', ()=> {
         try {
             
             const {data} = await AuthApi.logOut() //Llama a la API
-            router.push({name: 'login'})
-            userData.value = {} //Reinicio el valor del objeto
+            disconnectEcho() //Desconecto el echo
             localStorage.removeItem('AUTH_TOKEN') //Reinicia el token del storage
+            userData.value = {} //Reinicio el valor del objeto
+            router.push({name: 'login'})
             toast.open({
                     message: data.msg,
                     type: 'success'
             })
-           
          
         } catch (error) {
             console.log(error)

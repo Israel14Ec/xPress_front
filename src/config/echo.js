@@ -3,22 +3,47 @@ import Pusher from 'pusher-js';
 
 window.Pusher = Pusher;
 
-const token = localStorage.getItem('AUTH_TOKEN');
-console.log(token);
+export function initEcho() {
+    
+    const token = localStorage.getItem('AUTH_TOKEN');
 
-const echoConfig = {
-    broadcaster: 'pusher',
-    key: "df03ae27a8fe092e5efa",
-    cluster: 'mt1',
-    encrypted: true,
-    authEndpoint: 'https://xpressback-production.up.railway.app/broadcasting/auth',
-    auth: {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        }
+    if (window.echoInstance) {
+        window.echoInstance.disconnect();
     }
-};
 
-const echoInstance = new Echo(echoConfig);
+    const echoConfig = {
+        broadcaster: 'pusher',
+        key: import.meta.env.VITE_PUSHER_KEY,
+        cluster: import.meta.env.VITE_CLUSTER,
+        encrypted: true,
+        authEndpoint: import.meta.env.VITE_AUTH_ENDPOINT,
+        auth: {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        }
+    };
 
-export default echoInstance;
+    window.echoInstance = new Echo(echoConfig);
+    handleGlobalEvents();
+    return window.echoInstance
+}
+
+
+//Maneja la reconexión
+function handleGlobalEvents() {
+    window.echoInstance.connector.pusher.connection.bind('connected', () => {
+        console.log('Successfully connected to WebSocket.');
+    });
+
+    window.echoInstance.connector.pusher.connection.bind('disconnected', () => {
+        console.warn('Disconnected from WebSocket, attempting to reconnect...');
+        initEcho()
+    });
+}
+
+//Desconectar laravel echo
+export function disconnectEcho() {
+    window.echoInstance.disconnect()
+    console.log('Disconnected from Echo.');
+}

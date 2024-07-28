@@ -40,9 +40,9 @@
                 <p :class="{ 'bg-blue-100 rounded-xl px-3 py-1': select === 1 }"
                   @click="select = 1"
                 >No Leidas</p>
-                <p :class="{ 'bg-blue-100 rounded-xl px-3 py-1': select === 2 }"
-                  @click="select = 2"
-                >Leidas</p>
+                <button :class="{ 'bg-blue-100 rounded-xl px-3 py-1': select === 2 }"
+                  @click="getNotifyRead()"
+                >Leidas</button>
               </div>
 
               <!--NOTIFICACIONES NO LEIDAS-->
@@ -62,17 +62,22 @@
               </div>
 
                <!--NOTIFICACIONES LEIDAS-->
-              <div v-if="select == 2">  
-                <div v-if="notifyRead.length > 0">
-                    <CardNotification 
-                      v-for="noty in notifyRead"
-                      :key="noty.id" 
-                      :notify="noty" 
-                      :is-delete="true"
-                    />
+               <div v-if="select == 2">  
+                <div v-if="notification.loadRead">
+                  <p class=" mt-5 text-gray-700 text-sm font-semibold text-center">Cargando ...</p>
                 </div>
                 <div v-else>
-                  <p class="text-center mt-5 text-sm text-red-500">No hay notificaciones</p>
+                  <div v-if="notifyRead.length > 0">
+                      <CardNotification 
+                        v-for="noty in notifyRead"
+                        :key="noty.id" 
+                        :notify="noty" 
+                        :is-delete="true"
+                      />
+                  </div>
+                  <div v-else>
+                    <p class="text-center mt-5 text-sm text-red-500">No hay notificaciones</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -190,9 +195,9 @@
                         <p :class="{ 'bg-blue-100 rounded-xl px-3 py-1': select === 1 }"
                           @click="select = 1"
                         >No Leidas</p>
-                        <p :class="{ 'bg-blue-100 rounded-xl px-3 py-1': select === 2 }"
-                          @click="select = 2"
-                        >Leidas</p>
+                        <button :class="{ 'bg-blue-100 rounded-xl px-3 py-1': select === 2 }"
+                          @click="getNotifyRead()"
+                        >Leidas</button>
                       </div>
 
                        <!--NOTIFICACIONES NO LEIDAS-->
@@ -212,6 +217,10 @@
 
                        <!--NOTIFICACIONES LEIDAS-->
                        <div v-if="select == 2">  
+                        <div v-if="notification.loadRead">
+                          <p class=" mt-5 text-gray-700 text-sm font-semibold text-center">Cargando ...</p>
+                        </div>
+                        <div v-else>
                           <div v-if="notifyRead.length > 0">
                               <CardNotification 
                                 v-for="noty in notifyRead"
@@ -224,17 +233,17 @@
                             <p class="text-center mt-5 text-sm text-red-500">No hay notificaciones</p>
                           </div>
                         </div>
-
+                      </div>
                     </div>
                   </div>
                 </div>
                 
                 <div class="mb-16 p-1">
+                  <!--Contenido Principal-->    
+                  <RouterView>
+                  </RouterView>
                 </div>
 
-                <!--Contenido Principal-->    
-                <RouterView>
-                </RouterView>
             </main>
         </div>
     </div>
@@ -243,7 +252,7 @@
 
 <script setup>
 
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterView } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import FooterPanel from '../../components/FooterPanel.vue'
@@ -281,14 +290,18 @@ const selectNotify = () => {
 }
 
 onMounted(() => {
+    webSocket.startEmployeeListening()
     window.addEventListener("resize", handleResize) //Manejador de eventos 
-    webSocket.startListenWorkAssigned()
     util.getDepartmentById()
     notification.getUnRead() //Trae las notificaciones no leiadas
-    notification.getRead() //Trae las notificaciones leidas
-    
 })
 
+//Traer notificaciones leidas
+const getNotifyRead = () => {
+  notification.getRead()
+  select.value = 2
+  
+}
 
 const option = [
   {name: 'Inicio', icon: HomeIcon, nameRoute: 'HomeEmployee'},

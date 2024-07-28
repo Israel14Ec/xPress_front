@@ -110,6 +110,7 @@ export const useNotificationStore = defineStore('notifications', () => {
         notify,
         notifyRead,
         countNotify,
+        loadRead,
         getUnRead,
         markAsRead,
         getRead,

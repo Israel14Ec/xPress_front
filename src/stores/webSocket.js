@@ -2,7 +2,7 @@ import { defineStore, storeToRefs } from 'pinia';
 import { ref, inject } from 'vue';
 import { useAuthStore } from './auth';
 import { useNotificationStore } from './notification';
-import echoInstance from '../config/echo'; // Asegúrate de que la ruta sea correcta
+import { initEcho } from '../config/echo';
 
 export const useWebSocketStore = defineStore('websockets', () => {
     const toast = inject('toast');
@@ -12,38 +12,13 @@ export const useWebSocketStore = defineStore('websockets', () => {
     const { userData } = storeToRefs(authStore);
     const { notify } = storeToRefs(notification);
 
-    function registerListeners() {
-        echoInstance.channel('home').listen('Hello', (e) => {
-            console.log('Received message from home channel:', e);
-            messages.value.push(e.welcome);
-        });
+    const echoInstance = initEcho();
 
-        echoInstance.private('private-test.' + userData.value.id_user)
-            .listen('PrivateHellow', (e) => {
-                console.log('Received message from private-test channel:', e);
-                messages.value.push(e);
-            });
+    // -------------------------- LISTENERS ---------------------------------------
+    //Admin
+    function registerAdminListeners() {
 
-        echoInstance.private(`userAssignedJob.${userData.value.id_user}`)
-            .listen('UserAssigned', ({ data }) => {
-                console.log('Received UserAssigned event:', data);
-                toast.open({
-                    message: 'Se le ha asignado un nuevo trabajo, revise las notificaciones',
-                    type: 'info',
-                });
-                notify.value.unshift(data);
-            });
-
-        echoInstance.private(`userAssignedJob.${userData.value.id_user}`)
-            .listen('WorkAssigned', ({ data }) => {
-                console.log('Received WorkAssigned event:', data);
-                toast.open({
-                    message: 'Se asigno un nuevo trabajo',
-                    type: 'info',
-                });
-                notify.value.unshift(data);
-            });
-
+        //Escucha por el reporte de material
         echoInstance.private(`materialReport.${userData.value.id_user}`)
             .listen('MaterialAssigned', ({ data }) => {
                 console.log('Received MaterialAssigned event:', data);
@@ -53,7 +28,8 @@ export const useWebSocketStore = defineStore('websockets', () => {
                 });
                 notify.value.unshift(data);
             });
-
+        
+        //Escucha por el equipo reportado
         echoInstance.private(`equipmentReport.${userData.value.id_user}`)
             .listen('EquipmentAssigned', ({ data }) => {
                 console.log('Received EquipmentAssigned event:', data);
@@ -63,7 +39,8 @@ export const useWebSocketStore = defineStore('websockets', () => {
                 });
                 notify.value.unshift(data);
             });
-
+        
+        //Escucha por la notificación del material no disponible
         echoInstance.private(`materialUnavailable.${userData.value.id_user}`)
             .listen('MaterialUnavailable', ({ data }) => {
                 console.log('Received MaterialUnavailable event:', data);
@@ -73,12 +50,26 @@ export const useWebSocketStore = defineStore('websockets', () => {
                 });
                 notify.value.unshift(data);
             });
-
+        
+        //Escucha por la notificación del equipo no disponible 
         echoInstance.private(`equipmentUnavailable.${userData.value.id_user}`)
             .listen('EquipmentUnavailable', ({ data }) => {
                 console.log('Received EquipmentUnavailable event:', data);
                 toast.open({
                     message: data.subject,
+                    type: 'info',
+                });
+                notify.value.unshift(data);
+            });
+    }
+
+    // Listeners para Jefe de Departamento
+    function registerDepartmentHeadListeners() {
+        echoInstance.private(`userAssignedJob.${userData.value.id_user}`)
+            .listen('UserAssigned', ({ data }) => {
+                console.log('Received UserAssigned event:', data);
+                toast.open({
+                    message: 'Se le ha asignado un nuevo trabajo, revise las notificaciones',
                     type: 'info',
                 });
                 notify.value.unshift(data);
@@ -95,37 +86,56 @@ export const useWebSocketStore = defineStore('websockets', () => {
             });
     }
 
-    function startListening() {
-        console.log('startListening initialized');
-        registerListeners();
+     // Listeners para Empleado
+     function registerEmployeeListeners() {
+        echoInstance.private(`userAssignedJob.${userData.value.id_user}`)
+            .listen('WorkAssigned', ({ data }) => {
+                console.log('Received WorkAssigned event:', data);
+                toast.open({
+                    message: 'Asignación de trabajo - Revise las notificaciones',
+                    type: 'info',
+            });
+            notify.value.unshift(data);
+        });
     }
 
+    // ----------------- Función para iniciar los listeners --------------------------------------
+    function startAdminListening() {
+        console.log('startAdminListening initialized');
+        registerAdminListeners();
+    }
+
+    function startDepartmentHeadListening() {
+        console.log('startDepartmentHeadListening initialized');
+        registerDepartmentHeadListeners();
+    }
+
+    function startEmployeeListening() {
+        console.log('startEmployeeListening initialized');
+        registerEmployeeListeners();
+    }
+
+    /*
     function handleReconnect() {
+        
         echoInstance.connector.pusher.connection.bind('connected', () => {
-            console.log('Reconnected to WebSocket');
-            registerListeners();
+
         });
 
         echoInstance.connector.pusher.connection.bind('disconnected', () => {
             console.warn('Disconnected from WebSocket, attempting to reconnect...');
-            setTimeout(() => {
-                echoInstance.connector.pusher.connect();
-            }, 3000);
+
         });
     }
 
-    handleReconnect();
 
+    handleReconnect();
+    */
     return {
         messages,
-        startListening,
-        startListening2: startListening,
-        startListeningJob: startListening,
-        startListenWorkAssigned: startListening,
-        startListenReportMaterial: startListening,
-        startListenReportWorkComplete: startListening,
-        startListenReportEquipment: startListening,
-        startlisteningMaterialUnavailable: startListening,
-        startListeningEquipmentUnavailable: startListening,
+        startAdminListening,
+        startDepartmentHeadListening,
+        startEmployeeListening
+        
     };
 });
