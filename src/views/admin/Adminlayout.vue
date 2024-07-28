@@ -277,11 +277,11 @@
         </div>
 
         
-        <!--Contenido Principal-->
         <div class="mt-16 p-1">
-          <RouterView>
-          </RouterView>
         </div>
+        <!--Contenido Principal-->
+        <RouterView>
+        </RouterView>
       </main>
     </div>
 

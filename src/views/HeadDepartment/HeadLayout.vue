@@ -183,10 +183,10 @@
           </div>
         </div>
         <div class="mb-16 p-1">
-          <!--Contenido Principal-->
-            <RouterView>
-            </RouterView>
         </div>
+        <!--Contenido Principal-->
+        <RouterView>
+        </RouterView>
       </main>
 
     </div>
