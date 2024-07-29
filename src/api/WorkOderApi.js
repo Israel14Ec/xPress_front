@@ -94,7 +94,7 @@ export default {
 
     //TABLA INTERMEDIA --------------------
 
-    //Obtiene los trabajos del usuario, en función del idJobStatus y el usuario
+    //Obtiene los trabajos del usuario, en función del idWorkOrderStatus y el usuario
     getWorkOrderComplete(id_user, id_order_statuses) {
         return api.get('v1/asignar_trabajador', {
             params: {

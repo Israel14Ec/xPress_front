@@ -60,7 +60,7 @@
                 </RouterLink>
 
                 <RouterLink :to="{ name: 'EquipmentAdd' }">
-                    <ButtonBlack class="bg-blue-500/80 hover:bg-blue-500 text-white">
+                    <ButtonBlack class="bg-gray-900 text-white pointer-events-none">
                         <PlusCircleIcon />
                         <template #text>Nuevo equipo</template>
                     </ButtonBlack>

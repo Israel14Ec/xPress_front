@@ -17,7 +17,7 @@
                 </button>
                  
                 <RouterLink :to="{ name: 'MaterialAdd' }">
-                    <ButtonBlack class="bg-blue-500/70 hover:bg-blue-500 text-white">
+                    <ButtonBlack class="bg-gray-900 text-white pointer-events-none">
                         <PlusCircleIcon />
                         <template #text>
                         Nuevo material

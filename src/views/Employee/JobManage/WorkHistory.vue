@@ -88,13 +88,13 @@ import { PencilIcon, EyeIcon } from '@heroicons/vue/24/solid'
 import Spinner from '../../../components/Spinner.vue';
 import SearchInput from '../../../components/SearchInput.vue'
 
-const statusJob = ref(6) //Estado en progreso
+const statusJob = ref(3) //ORDEN DE TRABAJO FINALIZADA
 
 const assignStore = useAssignedWorkerStore()
 const { workDataHistory, load, search } = storeToRefs(assignStore)
 
 onMounted(async () => {
-    workDataHistory.value = await assignStore.getWorkOrderJobByUser(statusJob.value)
+    workDataHistory.value = await assignStore.workOrdersUser(statusJob.value)
 })
 
 const headers = [
