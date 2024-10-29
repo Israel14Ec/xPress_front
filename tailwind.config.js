@@ -13,7 +13,6 @@ module.exports = {
     extend: {
       colors: {
         "vtd-primary": colors.yellow,
-        "vtd-secondary": colors.gray,
       },
       fontFamily: {
         inter: ['Inter', 'sans'],

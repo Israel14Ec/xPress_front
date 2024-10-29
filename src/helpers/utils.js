@@ -94,3 +94,18 @@ export function convertDateToISO(dateString) {
     const parts = dateString.split('/');
     return `${parts[2]}-${parts[1]}-${parts[0]}`;
 }
+
+//Da el nombre de la ruta en función del rol del usuario
+export function namePathToRol(idRol) {
+  switch (idRol) {
+    //Administrador
+    case 1:
+      return 'HomePageAdmin'
+    //Jefe de departamento
+    case 2: 
+      return 'HomeDepartment'
+    //Empleado
+    case 3: 
+      return 'HomeEmployee'
+  }
+}

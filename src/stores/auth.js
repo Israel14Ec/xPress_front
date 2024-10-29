@@ -3,6 +3,7 @@ import {inject, ref} from 'vue'
 import {useRouter} from 'vue-router'
 import { disconnectEcho } from '../config/echo'
 import AuthApi from '../api/AuthApi'
+import { namePathToRol } from '../helpers/utils'
 
 
 export const useAuthStore = defineStore('auths', ()=> {
@@ -21,9 +22,11 @@ export const useAuthStore = defineStore('auths', ()=> {
                 password: dataForm.password
             }
             
-            const {data : {token}} = await AuthApi.login(requestData) //Obtengo el valor del token
-            localStorage.setItem('AUTH_TOKEN', token) //Guardo el token en mi storage
-            router.push({name: 'HomePageAdmin'})
+            const {data} = await AuthApi.login(requestData) //Obtengo el valor del token
+            const { token, data:dataUser} = data
+            localStorage.setItem('AUTH_TOKEN', token) //Guardo el token en el storage
+            const namePage = namePathToRol(dataUser.id_user);
+            router.push({name: namePage})
   
         } catch (error) {
             console.log(error)
