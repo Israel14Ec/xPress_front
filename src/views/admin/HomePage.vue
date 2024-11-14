@@ -5,7 +5,7 @@
       <div class="modal-content">
         <span class="close" @click="closeMessage">&times;</span>
         <p v-if="successMessage">¡Respuesta enviada con éxito!</p>
-        <p v-if="errorMessage">Error: {{ errorMessage }}</p>
+        <p v-if="errorMessage">Respuesta Enviada</p>
       </div>
     </div>
 
