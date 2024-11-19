@@ -107,5 +107,7 @@ export function namePathToRol(idRol) {
     //Empleado
     case 3: 
       return 'HomeEmployee'
+    default: 
+      return 'HomeEmployee'
   }
 }
