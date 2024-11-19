@@ -156,10 +156,13 @@ watch(() => jobComplete.value.location, (newLocation) => {
 
 //Exporta a pdf
 const exportPdf = () => {
+
     const element = document.getElementById('content-to-pdf');
+    const sanitizedFileName = `Trabajo_${jobComplete.value.name_job.replace(/\./g, '_')}.pdf`;
+
     html2pdf().from(element).set({
         margin: [10, 10, 10, 10], // top, left, bottom, right in mm
-        filename: `Trabajo ${jobComplete.value.name_job}`,
+        filename: `${sanitizedFileName}`,
         html2canvas: {
             useCORS: true,
         },
